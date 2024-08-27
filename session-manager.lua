@@ -14,6 +14,7 @@ local function retrieve_workspace_data(window)
 	for _, tab in ipairs(window:mux_window():tabs()) do
 		local tab_data = {
 			tab_id = tostring(tab:tab_id()),
+			title = tab:get_title(),
 			panes = {},
 		}
 
@@ -113,6 +114,8 @@ local function recreate_workspace(window, workspace_data)
 
 		-- Activate the new tab before creating panes
 		new_tab:activate()
+
+		new_tab:set_title(tab_data.title)
 
 		-- Recreate panes within this tab
 		for j, pane_data in ipairs(tab_data.panes) do
